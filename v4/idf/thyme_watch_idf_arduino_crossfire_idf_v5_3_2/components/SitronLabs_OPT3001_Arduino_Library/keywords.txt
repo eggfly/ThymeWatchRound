@@ -1,0 +1,10 @@
+opt3001	KEYWORD1
+register_read	KEYWORD2
+register_write	KEYWORD2
+setup	KEYWORD2
+detect	KEYWORD2
+config_set	KEYWORD2
+conversion_continuous_enable	KEYWORD2
+conversion_continuous_disable	KEYWORD2
+conversion_singleshot_trigger	KEYWORD2
+lux_read	KEYWORD2

@@ -1,0 +1,576 @@
+dependencies:
+  Adafruit_BMP280_Library:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/Adafruit_BMP280_Library
+      type: local
+    version: '*'
+  Adafruit_BusIO:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/Adafruit_BusIO
+      type: local
+    version: '*'
+  Adafruit_INA219:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/Adafruit_INA219
+      type: local
+    version: '*'
+  Adafruit_MAX1704X:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/Adafruit_MAX1704X
+      type: local
+    version: '*'
+  Adafruit_RTClib:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/Adafruit_RTClib
+      type: local
+    version: '*'
+  Adafruit_SHT31:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/Adafruit_SHT31
+      type: local
+    version: '*'
+  Adafruit_Sensor:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/Adafruit_Sensor
+      type: local
+    version: '*'
+  Arduino_BMI270_BMM150:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/Arduino_BMI270_BMM150
+      type: local
+    version: '*'
+  Arduino_GFX:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/Arduino_GFX
+      type: local
+    version: '*'
+  ESP32-audioI2S:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/ESP32-audioI2S
+      type: local
+    version: '*'
+  PAT9125:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/PAT9125
+      type: local
+    version: '*'
+  PCA6408A:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/PCA6408A
+      type: local
+    version: '*'
+  RTC_RX8025T:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/RTC_RX8025T
+      type: local
+    version: '*'
+  SitronLabs_OPT3001_Arduino_Library:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/SitronLabs_OPT3001_Arduino_Library
+      type: local
+    version: '*'
+  Time:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/Time
+      type: local
+    version: '*'
+  U8g2_Arduino:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/v4/idf/thyme_watch_idf_arduino_crossfire_idf_v5_3_2/components/U8g2_Arduino
+      type: local
+    version: '*'
+  chmorgan/esp-libhelix-mp3:
+    component_hash: cbb76089dc2c5749f7b470e2e70aedc44c9da519e04eb9a67d4c7ec275229e53
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.1.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.0.3
+  espressif/arduino-esp32:
+    dependencies:
+    - name: idf
+      version: '>=5.3,<5.4'
+    - name: espressif/mdns
+      require: public
+      version: ^1.2.3
+    - name: espressif/esp_modem
+      version: ^1.1.0
+    - name: espressif/esp-zboss-lib
+      require: public
+      rules:
+      - if: target not in [esp32c2, esp32p4]
+      version: ==1.6.0
+    - name: espressif/esp-zigbee-lib
+      require: public
+      rules:
+      - if: target not in [esp32c2, esp32p4]
+      version: ==1.6.0
+    - name: espressif/esp-dsp
+      rules:
+      - if: target != esp32c2
+      version: ^1.3.4
+    - name: espressif/network_provisioning
+      version: 1.0.2
+    - name: espressif/esp_rainmaker
+      rules:
+      - if: target not in [esp32c2, esp32p4]
+      version: 1.5.0
+    - name: espressif/rmaker_common
+      rules:
+      - if: target not in [esp32c2, esp32p4]
+      version: 1.4.6
+    - name: espressif/esp_insights
+      rules:
+      - if: target not in [esp32c2, esp32p4]
+      version: 1.0.1
+    - name: espressif/esp_diag_data_store
+      rules:
+      - if: target not in [esp32c2, esp32p4]
+      version: 1.0.1
+    - name: espressif/esp_diagnostics
+      rules:
+      - if: target not in [esp32c2, esp32p4]
+      version: 1.0.2
+    - name: espressif/cbor
+      rules:
+      - if: target not in [esp32c2, esp32p4]
+      version: 0.6.0~1
+    - name: espressif/qrcode
+      rules:
+      - if: target not in [esp32c2, esp32p4]
+      version: 0.1.0~2
+    - name: espressif/esp-sr
+      rules:
+      - if: target in [esp32s3]
+      version: ^1.4.2
+    - name: espressif/esp_hosted
+      rules:
+      - if: target == esp32p4
+      version: ^0.0.25
+    - name: espressif/esp_wifi_remote
+      rules:
+      - if: target == esp32p4
+      version: ^0.4.1
+    - name: espressif/libsodium
+      require: public
+      version: ^1.0.20~1
+    - name: espressif/esp-modbus
+      require: public
+      version: ^1.0.15
+    - name: joltwallet/littlefs
+      version: ^1.10.2
+    - name: chmorgan/esp-libhelix-mp3
+      require: public
+      version: 1.0.3
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/common_idf_components/arduino-esp32
+      type: local
+    targets:
+    - esp32
+    - esp32s2
+    - esp32s3
+    - esp32c2
+    - esp32c3
+    - esp32c6
+    - esp32h2
+    - esp32p4
+    version: '*'
+  espressif/cbor:
+    component_hash: 440f4ee4504841cc9b4f3a8ef755776a612ac9dace355514c68b999868f990ff
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.3'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 0.6.0~1
+  espressif/esp-dsp:
+    component_hash: 3e7bbd487f1357a1d4944d0c85966d049501ea281b8a4c7f93f7cfedd5b7f23d
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.2'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.4.12
+  espressif/esp-modbus:
+    component_hash: e42ebfdfc9d8e46821a915b4c1a5c6465c44dbd4e1bca10531e26f4adc7acc42
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.3'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.0.17
+  espressif/esp-serial-flasher:
+    component_hash: dcc42a16712a1a636509cf0bf90e14032d7f2141784b533613b267b6aa318d52
+    dependencies: []
+    source:
+      registry_url: https://components.espressif.com
+      type: service
+    version: 0.0.11
+  espressif/esp-sr:
+    component_hash: 9b41fd5ae5960c393bfd3559cd6e5fa2a95c0bf833915cebafe57fb8c4e4c396
+    dependencies:
+    - name: espressif/esp-dsp
+      registry_url: https://components.espressif.com
+      require: private
+      version: <=1.5.0
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.9.5
+  espressif/esp-zboss-lib:
+    component_hash: fad683f7e04366398b61c0eea6e6517d4fe7ec4112407e26743dc80bafc0dcdc
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.6.0
+  espressif/esp-zigbee-lib:
+    component_hash: 0026979f590d7f2b07f433bb0fd031a12b0c2cc0eec8584b59cb6e567d5afd82
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.6.0
+  espressif/esp_diag_data_store:
+    component_hash: 8849195251dbb8a2d7268335277cfa310cef36e4ac1e90cd59ad3be4269a30d7
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.1'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.0.1
+  espressif/esp_diagnostics:
+    component_hash: fe19f5ee7f0145f406d36a4d5310e4ae0c6ee1afa47f2681ada8a2ea8582d390
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.1'
+    - name: espressif/rmaker_common
+      registry_url: https://components.espressif.com
+      require: private
+      version: ~1.4.0
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.0.2
+  espressif/esp_insights:
+    component_hash: 2472a19de98a8b991baeeac7209765b70ce14ec2b1435dbed3abd020dd0f7227
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.1'
+    - name: espressif/rmaker_common
+      registry_url: https://components.espressif.com
+      require: private
+      version: ~1.4.0
+    - name: espressif/esp_diagnostics
+      registry_url: https://components.espressif.com
+      require: private
+      version: ~1.0
+    - name: espressif/esp_diag_data_store
+      registry_url: https://components.espressif.com
+      require: private
+      version: ~1.0
+    - name: espressif/cbor
+      registry_url: https://components.espressif.com
+      require: private
+      rules:
+      - if: idf_version >=5.0
+      version: ~0.6
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.0.1
+  espressif/esp_modem:
+    component_hash: 681d7c8417ce0f2a11a562c6998b7b379a4847be41d84673c11c0c7a6b00e918
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.1'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.3.0
+  espressif/esp_rainmaker:
+    component_hash: f89a4759347f3909417fb33059452f36c86befae9d10bda78b5417b7a5d19d11
+    dependencies:
+    - name: espressif/rmaker_common
+      registry_url: https://components.espressif.com
+      require: private
+      version: ~1.4.6
+    - name: espressif/network_provisioning
+      registry_url: https://components.espressif.com
+      require: private
+      rules:
+      - if: idf_version >= 5.1
+      version: ~1.0.0
+    - name: espressif/mdns
+      registry_url: https://components.espressif.com
+      require: private
+      rules:
+      - if: idf_version >=5.0
+      version: ^1.2.0
+    - name: espressif/json_parser
+      registry_url: https://components.espressif.com
+      require: private
+      version: ~1.0.3
+    - name: espressif/json_generator
+      registry_url: https://components.espressif.com
+      require: private
+      version: ~1.1.1
+    - name: espressif/esp_secure_cert_mgr
+      registry_url: https://components.espressif.com
+      require: private
+      rules:
+      - if: idf_version >=4.3
+      version: ^2.2.1
+    - name: espressif/esp_schedule
+      registry_url: https://components.espressif.com
+      require: private
+      version: ~1.2.0
+    - name: espressif/esp_rcp_update
+      registry_url: https://components.espressif.com
+      require: private
+      rules:
+      - if: idf_version >= 5.1
+      version: ~1.2.0
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.5.0
+  espressif/esp_rcp_update:
+    component_hash: c10afbd54a17f27eed880e61262b161656e6d36ad63376c307f9273e99d0abcd
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    - name: espressif/esp-serial-flasher
+      registry_url: https://components.espressif.com
+      require: private
+      version: ~0.0.0
+    source:
+      registry_url: https://components.espressif.com
+      type: service
+    version: 1.2.0
+  espressif/esp_schedule:
+    component_hash: e202a9c688f7f1ab601efb91d682e4bcfaebc508dcceee1a1e0a0d2d1ca75a26
+    dependencies:
+    - name: espressif/rmaker_common
+      registry_url: https://components.espressif.com
+      require: private
+      version: ~1.4.2
+    source:
+      registry_url: https://components.espressif.com
+      type: service
+    version: 1.2.0
+  espressif/esp_secure_cert_mgr:
+    component_hash: 5d9175b416f751ba6a7cb35bdf092f0af85658ce06c4a592c7c541d8017ebeb9
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.3'
+    source:
+      registry_url: https://components.espressif.com
+      type: service
+    version: 2.5.0
+  espressif/esp_tinyusb:
+    component_hash: 3f273ea23ce1a9573f6708729c02f46d75c8110bc88a61daa07c3a03789f718f
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    - name: espressif/tinyusb
+      registry_url: https://components.espressif.com
+      require: public
+      version: '>=0.14.2'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.6.0
+  espressif/jsmn:
+    component_hash: d80350c41bbaa827c98a25b6072df00884e72f54885996fab4a4f0aebce6b6c3
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.3'
+    source:
+      registry_url: https://components.espressif.com
+      type: service
+    version: 1.1.0
+  espressif/json_generator:
+    component_hash: 45033e1c199b13f1c8c1b544fb7d4e2df6a8e3071ebdcb1b22582b61a7974ff2
+    dependencies: []
+    source:
+      registry_url: https://components.espressif.com
+      type: service
+    version: 1.1.2
+  espressif/json_parser:
+    component_hash: d74b81729ad06ec11ff5eb5b1b0d7df1d00e6027fc11471f4b139c70dcf1b1e4
+    dependencies:
+    - name: espressif/jsmn
+      registry_url: https://components.espressif.com
+      require: private
+      rules:
+      - if: idf_version >=5.0
+      version: ~1.1
+    source:
+      registry_url: https://components.espressif.com
+      type: service
+    version: 1.0.3
+  espressif/libsodium:
+    component_hash: 25b968723c584a2742ca36cebe5a7ef049c6767e059f7b1e1eec69946019025d
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.2'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.0.20~2
+  espressif/mdns:
+    component_hash: 3d16bbbb5531a04cdc2ec5cc9a961e0e7380710ed4128ce87496daf0d73dda89
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.5.0
+  espressif/network_provisioning:
+    component_hash: ef2e10182fd1861e68b821491916327c25416ca7ae70e5a6e43313dbc71fe993
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.1'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.0.2
+  espressif/qrcode:
+    component_hash: 3b493771bc5d6ad30cbf87c25bf784aada8a08c941504355b55d6b75518ed7bc
+    dependencies: []
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 0.1.0~2
+  espressif/rmaker_common:
+    component_hash: a3a1df881278d0351fc850b77792fe8a196ddd6dcacbea203d606329cc6a0239
+    dependencies: []
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.4.6
+  espressif/tinyusb:
+    component_hash: 7f73a4159dc95325ceaa4ade5e88734c4e1f5124746a3765cf61dc6157d78798
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    targets:
+    - esp32s2
+    - esp32s3
+    - esp32p4
+    version: 0.17.0~2
+  gfx_fonts:
+    dependencies: []
+    source:
+      path: /Users/eggfly/github/eggfly/ThymeWatchRound/common_idf_components/gfx_fonts
+      type: local
+    version: '*'
+  idf:
+    source:
+      type: idf
+    version: 5.3.2
+  joltwallet/littlefs:
+    component_hash: cc23c607cbc8671bc03b1b1b39ae13d8f5e8e23771e0b1c66599d04ecd0a3527
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.3'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.16.2
+direct_dependencies:
+- Adafruit_BMP280_Library
+- Adafruit_BusIO
+- Adafruit_INA219
+- Adafruit_MAX1704X
+- Adafruit_RTClib
+- Adafruit_SHT31
+- Adafruit_Sensor
+- Arduino_BMI270_BMM150
+- Arduino_GFX
+- ESP32-audioI2S
+- PAT9125
+- PCA6408A
+- RTC_RX8025T
+- SitronLabs_OPT3001_Arduino_Library
+- Time
+- U8g2_Arduino
+- chmorgan/esp-libhelix-mp3
+- espressif/arduino-esp32
+- espressif/cbor
+- espressif/esp-dsp
+- espressif/esp-modbus
+- espressif/esp-sr
+- espressif/esp-zboss-lib
+- espressif/esp-zigbee-lib
+- espressif/esp_diag_data_store
+- espressif/esp_diagnostics
+- espressif/esp_insights
+- espressif/esp_modem
+- espressif/esp_rainmaker
+- espressif/esp_tinyusb
+- espressif/libsodium
+- espressif/mdns
+- espressif/network_provisioning
+- espressif/qrcode
+- espressif/rmaker_common
+- espressif/tinyusb
+- gfx_fonts
+- idf
+- joltwallet/littlefs
+manifest_hash: 7ec18218876ff963cd8ac1f7de0bbea9758f32e113b4d98ee3ca271c98603eb6
+target: esp32s3
+version: 2.0.0

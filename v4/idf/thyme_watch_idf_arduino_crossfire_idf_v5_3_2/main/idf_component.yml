@@ -1,0 +1,50 @@
+## IDF Component Manager Manifest File
+dependencies:
+  idf: "^5.3.2"
+  espressif/esp_tinyusb: "^1.4.2"
+  espressif/tinyusb:
+    public: true
+    version: '>=0.14.2'
+  espressif/arduino-esp32:
+    # > 3.1.1
+    path: ../components/arduino-esp32
+  PCA6408A:
+    path: ../components/PCA6408A
+  # Adafruit_GFX_Library:
+  #   path: ../components/Adafruit_GFX_Library
+  Adafruit_Sensor:
+    path: ../components/Adafruit_Sensor
+  Adafruit_BusIO:
+    path: ../components/Adafruit_BusIO
+  Adafruit_BMP280_Library:
+    path: ../components/Adafruit_BMP280_Library
+  RTC_RX8025T:
+    path: ../components/RTC_RX8025T
+  Adafruit_RTClib:
+    path: ../components/Adafruit_RTClib
+  Time:
+    path: ../components/Time
+  PAT9125:
+    path: ../components/PAT9125
+  SitronLabs_OPT3001_Arduino_Library:
+    path: ../components/SitronLabs_OPT3001_Arduino_Library
+  Arduino_BMI270_BMM150:
+    path: ../components/Arduino_BMI270_BMM150
+  U8g2_Arduino:
+    path: ../components/U8g2_Arduino
+  Arduino_GFX:
+    path: ../components/Arduino_GFX
+  ESP32-audioI2S:
+    path: ../components/ESP32-audioI2S
+  Adafruit_MAX1704X:
+    path: ../components/Adafruit_MAX1704X
+  Adafruit_SHT31:
+    path: ../components/Adafruit_SHT31
+  Adafruit_INA219:
+    path: ../components/Adafruit_INA219
+  gfx_fonts:
+    path: ../components/gfx_fonts
+
+  # espressif/arduino-esp32:
+  #   pre_release: true
+  #   version: '3.1.1'

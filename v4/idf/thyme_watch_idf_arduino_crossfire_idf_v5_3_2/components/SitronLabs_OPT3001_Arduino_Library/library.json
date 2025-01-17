@@ -1,0 +1,15 @@
+{
+  "name": "SitronLabs_OPT3001_Arduino_Library",
+  "version": "0.1.1",
+  "description": "Arduino library for the Texas Instruments OPT3001 Ambient Light Sensor.",
+  "keywords": "Sitron Labs, Sitron, Labs, Arduino, Library, Texas Instruments, TI, OPT3001, Ambient, Light, Sensor",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sitronlabs/SitronLabs_OPT3001_Arduino_Library.git"
+  },
+  "frameworks": "arduino",
+  "platforms": "*",
+  "build": {
+    "includeDir": "src"
+  }
+}

@@ -1,0 +1,2 @@
+*** missing SConscript file '/Users/eggfly/.platformio/packages/framework-arduinoespressif32/tools/platformio-build.py'
+File "/Users/eggfly/.platformio/platforms/espressif32/builder/frameworks/arduino.py", line 36, in <module>

@@ -1,0 +1,4 @@
+# umount
+# diskutil unmount /dev/disk2s1
+sudo mkdir -p /Volumes/MyVolume  
+sudo mount -t  msdos -o rw /dev/disk4s1 /Volumes/MyVolume
