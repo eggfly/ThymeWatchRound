@@ -4,20 +4,10 @@
 #include <framework/ThymeApp.h>
 #include "Arduino_Canvas_6bit.h"
 
-typedef struct
-{
-    const char *id;
-    const char *title;
-    const char *subtitle;
-    const uint8_t *xbm_icon;
-    uint16_t icon_width;
-    uint16_t icon_height;
-} MenuItem;
-
-class ThymeWatchMenu : public ThymeApp
+class Game_Breakout : public ThymeApp
 {
 public:
-    ThymeWatchMenu();
+    Game_Breakout();
     std::string appId() override;
     void onStart(Arduino_Canvas_6bit *gfx) override;
     void onStop(Arduino_Canvas_6bit *gfx) override;
@@ -27,13 +17,16 @@ public:
     void onDownButtonPressed() override;
     bool needUpdateDigitalCrown() override { return true; }
     void onDigitalCrownRotated(long position) override;
-    ~ThymeWatchMenu() override;
+    ~Game_Breakout() override;
 
 private:
-    const long DIGITAL_CROWN_STEP = 15;
-    int8_t selectedItem;
-    long lastDigitalCrownPosition;
-    void menuUp();
-    void menuDown();
-    void drawMenuItem(Arduino_Canvas_6bit *gfx, uint8_t menu_index, uint16_t centerX, uint16_t centerY);
+    long lastDigitalCrownPosition = 0;
+    // 二分之根号2 * 120 = 84.85
+    const int16_t WIDTH_HEIGHT = 85 * 2;
+    const int16_t BALL_RADIUS = 3;
+    unsigned long lastTime = 0;
+    double ballPosX = 120;
+    double ballPosY = 120;
+    double ballSpeedX = 8; // pixels per second
+    double ballSpeedY = 8; // pixels per second
 };

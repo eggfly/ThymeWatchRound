@@ -22,10 +22,16 @@ idf_component_register(
       "hal/hal_imu.cpp"
       "hal/hal_ble_server.cpp"
       "util/memory.cpp"
+      "util/system.cpp"
+      "util/ui.cpp"
       "framework/ThymeApp.cpp"
       "framework/app_manager.cpp"
       "apps/ThymeWatchMenu.cpp"
       "apps/ThymeWatchFace.cpp"
+      "apps/WatchFaceSelector.cpp"
+      "apps/TemplateApp.cpp"
+      "apps/UsbMscApp.cpp"
+      "apps/Game_Breakout.cpp"
     INCLUDE_DIRS . ./gfx
     PRIV_REQUIRES "${priv_requires}"
 )

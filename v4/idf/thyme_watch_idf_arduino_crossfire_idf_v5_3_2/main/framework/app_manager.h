@@ -1,28 +1,55 @@
 #pragma once
 
 #include <Arduino.h>
-
+#include <hal/hal_ls012b7dd06.h>
 #include "ThymeApp.h"
 
 namespace Thyme::AppManager
 {
     extern ThymeApp *currentApp;
+    extern uint8_t frame_buffer[LCD_WIDTH * LCD_HEIGHT];
+    extern Arduino_Canvas_6bit *gfx;
+    extern uint8_t prevButtonState;
 
     template <typename T>
     void navigateToApp()
     {
-        static_assert(std::is_base_of<ThymeApp, T>::value, "T must be a subclass of ThymeWatchApp");
+        static_assert(std::is_base_of<ThymeApp, T>::value, "T must be a subclass of ThymeApp");
         if (currentApp != nullptr)
         {
-            currentApp->onStop();
+            currentApp->onStop(gfx);
             delete currentApp;
         }
         currentApp = new T();
-        currentApp->onStart();
+        currentApp->onStart(gfx);
     }
 
-    extern uint8_t prevButtonState;
-
     void checkNotifyButtonEvent(uint8_t buttonState);
-    void onBackPressed();
+    void checkNotifyBackButton(bool backPressed);
+    void checkNotifyDigitalCrown(long position);
+
+    inline bool buttonUpPressed(uint8_t state)
+    {
+        return !(state & 0b001);
+    }
+    inline bool buttonMiddlePressed(uint8_t state)
+    {
+        return !(state & 0b010);
+    }
+    inline bool buttonDownPressed(uint8_t state)
+    {
+        return !(state & 0b100);
+    }
+    inline Arduino_Canvas_6bit *getCanvas()
+    {
+        return gfx;
+    }
+    inline uint8_t *getBuffer()
+    {
+        return frame_buffer;
+    }
+    inline bool isScreenTouched(uint8_t state)
+    {
+        return state & (1 << 7);
+    }
 }

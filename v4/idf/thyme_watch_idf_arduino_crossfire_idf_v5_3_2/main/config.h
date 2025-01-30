@@ -1,7 +1,5 @@
 #pragma once
 
-#define REBOOT_PIN GPIO_NUM_0
-
 #define ULP_I2C_SDA (5)
 #define ULP_I2C_SCL (4)
 
@@ -16,6 +14,8 @@
 
 #define RGB565_ORANGE 0xFAA0
 
+#define REBOOT_PIN GPIO_NUM_0
 #define WAKEUP_PIN (0)
+#define BACK_PIN (0)
 
 #define SLEEP_DURATION 10 // 深度睡眠时间（秒）
