@@ -13,7 +13,7 @@
 
 #define TAG "WatchFaceSelector"
 
-WatchFaceSelector::WatchFaceSelector(void *params)
+WatchFaceSelector::WatchFaceSelector()
 {
     MY_LOG("WatchFaceSelector::WatchFaceSelector()");
 }
@@ -39,6 +39,7 @@ void WatchFaceSelector::onDraw(Arduino_Canvas_6bit *gfx)
     flushDisplay(gfx->getFramebuffer());
 }
 
+
 WatchFaceSelector::~WatchFaceSelector()
 {
     MY_LOG("WatchFaceSelector::~WatchFaceSelector()");
@@ -55,3 +56,4 @@ void WatchFaceSelector::renderNyanCat(Arduino_Canvas_6bit *gfx)
         nyanCatFramePos = 0;
     }
 }
+

@@ -6,7 +6,6 @@
 class ThymeApp
 {
 public:
-    ThymeApp(void* params);
     virtual std::string appId() = 0;
     virtual void onStart(Arduino_Canvas_6bit *gfx) {}
     virtual void onStop(Arduino_Canvas_6bit *gfx) {}

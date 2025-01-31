@@ -12,7 +12,7 @@ namespace Thyme::AppManager
     extern uint8_t prevButtonState;
 
     template <typename T>
-    void navigateToApp(void *params = nullptr)
+    void navigateToApp()
     {
         static_assert(std::is_base_of<ThymeApp, T>::value, "T must be a subclass of ThymeApp");
         if (currentApp != nullptr)
@@ -20,7 +20,7 @@ namespace Thyme::AppManager
             currentApp->onStop(gfx);
             delete currentApp;
         }
-        currentApp = new T(params);
+        currentApp = new T();
         currentApp->onStart(gfx);
     }
 
