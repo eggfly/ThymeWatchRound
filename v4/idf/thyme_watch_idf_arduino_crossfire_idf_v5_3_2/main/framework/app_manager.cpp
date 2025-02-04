@@ -1,6 +1,5 @@
 #include "app_manager.h"
 #include "common.h"
-#include <config.h>
 
 #define TAG "AppManager"
 namespace Thyme::AppManager
@@ -10,7 +9,6 @@ namespace Thyme::AppManager
     bool prevBackPressed = false;
     uint8_t frame_buffer[LCD_WIDTH * LCD_HEIGHT];
     Arduino_Canvas_6bit *gfx;
-    unsigned long lastInteractTime = 0;
 
     void checkNotifyButtonEvent(uint8_t buttonState)
     {
@@ -20,7 +18,6 @@ namespace Thyme::AppManager
             if (prevButtonState != buttonState)
             {
                 currentApp->onButtonEvent(buttonState, prevButtonState);
-                lastInteractTime = millis();
             }
             bool upButtonPressed = buttonUpPressed(buttonState);
             bool midButtonPressed = buttonMiddlePressed(buttonState);
@@ -59,10 +56,6 @@ namespace Thyme::AppManager
                 currentApp->onBackPressed();
             }
         }
-        if (prevBackPressed != backPressed)
-        {
-            lastInteractTime = millis();
-        }
         prevBackPressed = backPressed;
     }
 
@@ -72,10 +65,5 @@ namespace Thyme::AppManager
         {
             currentApp->onDigitalCrownRotated(position);
         }
-    }
-
-    bool idleNeedDeepSleep()
-    {
-        return millis() - lastInteractTime > IDLE_DEEP_SLEEP_TIME;
     }
 }

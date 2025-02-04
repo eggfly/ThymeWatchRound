@@ -10,7 +10,6 @@ namespace Thyme::AppManager
     extern uint8_t frame_buffer[LCD_WIDTH * LCD_HEIGHT];
     extern Arduino_Canvas_6bit *gfx;
     extern uint8_t prevButtonState;
-    extern unsigned long lastInteractTime;
 
     template <typename T>
     void navigateToApp()
@@ -28,7 +27,6 @@ namespace Thyme::AppManager
     void checkNotifyButtonEvent(uint8_t buttonState);
     void checkNotifyBackButton(bool backPressed);
     void checkNotifyDigitalCrown(long position);
-    bool idleNeedDeepSleep();
 
     inline bool buttonUpPressed(uint8_t state)
     {

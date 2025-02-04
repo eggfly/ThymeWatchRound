@@ -19,5 +19,3 @@
 #define BACK_PIN (0)
 
 #define SLEEP_DURATION 10 // 深度睡眠时间（秒）
-
-#define IDLE_DEEP_SLEEP_TIME (60 * 1000)

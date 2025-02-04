@@ -247,7 +247,6 @@ void mainSetup()
     //         return;
     //     }
     // }
-    AppManager::lastInteractTime = millis();
 }
 
 void mainLoop()
@@ -258,10 +257,6 @@ void mainLoop()
         int incomingByte = Serial.read();
         // 以十进制打印读取到的字节
         MY_LOG("Received: %d", incomingByte);
-    }
-    if (AppManager::idleNeedDeepSleep()) {
-        MY_LOG("Enter deep sleep");
-        enter_sleep_sleep();
     }
     if (AppManager::currentApp != nullptr)
     {
