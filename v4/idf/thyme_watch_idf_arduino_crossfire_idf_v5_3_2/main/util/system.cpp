@@ -6,6 +6,7 @@
 #include "hal/hal_pca6408a.h"
 #include "hal/hal_battery_fuel_gauge.h"
 #include "hal/hal_ls012b7dd06.h"
+#include "hal/hal_digital_crown.h"
 #include "config.h"
 
 #define TAG "System"
@@ -149,4 +150,10 @@ void enableSensorPowerIdf()
     gpio_set_level(GPIO_NUM_9, 1);
     // int pin9 = digitalRead(9);
     // ESP_LOGI(TAG, "pin9 is %d", pin9);
+}
+
+void my_esp_restart()
+{
+    reset_pat9125();
+    esp_restart();
 }

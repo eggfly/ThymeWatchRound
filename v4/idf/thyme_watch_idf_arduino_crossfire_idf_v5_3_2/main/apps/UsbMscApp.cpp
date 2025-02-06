@@ -13,6 +13,7 @@
 #include "tinyusb.h"
 #include "tusb_msc_storage.h"
 #include "tusb_msc.h"
+#include <util/system.h>
 #include <Arduino_GFX.h>
 
 #define TAG "UsbMscApp"
@@ -100,7 +101,7 @@ void UsbMscApp::waitForRebootKeyForever()
                 tinyusb_msc_storage_unmount();
                 tinyusb_msc_storage_deinit();
                 vTaskDelay(200);
-                esp_restart();
+                my_esp_restart();
                 break;
             }
         }

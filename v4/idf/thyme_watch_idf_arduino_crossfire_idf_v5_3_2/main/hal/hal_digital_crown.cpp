@@ -13,6 +13,11 @@ void init_pat9125()
   PAT.pat9125_set_res(240, 240, true);
 }
 
+void reset_pat9125()
+{
+  PAT.pat9125_reset();
+}
+
 long read_pat9125()
 {
   PAT.pat9125_update();
