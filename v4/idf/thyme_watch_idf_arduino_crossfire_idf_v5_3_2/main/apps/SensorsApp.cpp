@@ -13,7 +13,7 @@
 
 using namespace Thyme;
 
-SensorsApp::SensorsApp()
+SensorsApp::SensorsApp(void *params) : ThymeApp(params)
 {
     MY_LOG("SensorsApp::SensorsApp()");
 }

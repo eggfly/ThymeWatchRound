@@ -25,6 +25,19 @@ void disableSensorPower()
     digitalWrite(9, LOW);
 }
 
+void myShortToneAsync()
+{
+    tone(BUZZER_PIN, 8000, 30);
+    MY_LOG("short tone started");
+}
+
+void myShortToneSync()
+{
+    tone(BUZZER_PIN, 8000, 30);
+    delay(30);
+    noTone(BUZZER_PIN);
+}
+
 void enter_deep_sleep()
 {
     MY_LOG("Enter deep sleep");
@@ -42,6 +55,9 @@ void enter_deep_sleep()
                           PCA6408A_IO2_INPUT |
                           PCA6408A_IO1_INPUT |
                           PCA6408A_IO0_INPUT);
+    myShortToneSync();
+    delay(100);
+    myShortToneSync();
 
     gpio_hold_en((gpio_num_t)VCOM_PIN);
     esp_sleep_enable_ext0_wakeup((gpio_num_t)WAKEUP_PIN, 0); // 0 表示低电平唤醒

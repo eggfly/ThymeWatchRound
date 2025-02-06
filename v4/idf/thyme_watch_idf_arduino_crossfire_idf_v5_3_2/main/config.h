@@ -19,6 +19,7 @@
 #define REBOOT_PIN GPIO_NUM_0
 #define WAKEUP_PIN (0)
 #define BACK_PIN (0)
+#define BUZZER_PIN (8)
 
 #define SLEEP_DURATION 10 // 深度睡眠时间（秒）
 

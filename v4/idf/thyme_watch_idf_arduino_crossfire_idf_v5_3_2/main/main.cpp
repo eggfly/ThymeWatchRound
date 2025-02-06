@@ -140,8 +140,20 @@ void initArduinoGFX()
 
 bool gPrevTouched = false;
 
+volatile bool buttonEventFlag = false; // 中断标记
+
+unsigned long pressStartTime = 0;              // 记录按下开始的时间
+bool buttonPressed = false;                    // 标识当前是否处于按下状态
+const unsigned long longPressThreshold = 1000; // 长按阈值：1000 毫秒
+// ISR：仅标记状态变化（注意需要声明 IRAM_ATTR 放在 ISR 前）
+void IRAM_ATTR btnISR()
+{
+    buttonEventFlag = true;
+}
+
 void mainSetup()
 {
+    myShortToneAsync();
     MY_LOG("Now app_main() called, time is %ld", millis());
     AppManager::navigateToApp<ThymeWatchFace>();
     pinMode(BACK_PIN, INPUT);
@@ -247,7 +259,14 @@ void mainSetup()
     //         return;
     //     }
     // }
+    pinMode(BACK_PIN, INPUT_PULLUP);
+    // 设定中断触发条件为 CHANGE（既检测按下也检测松开）
+    attachInterrupt(digitalPinToInterrupt(BACK_PIN), btnISR, CHANGE);
     AppManager::lastInteractTime = millis();
+}
+
+void handleBackButtonEvent() {
+
 }
 
 void mainLoop()
@@ -259,7 +278,38 @@ void mainLoop()
         // 以十进制打印读取到的字节
         MY_LOG("Received: %d", incomingByte);
     }
-    if (AppManager::idleNeedDeepSleep()) {
+    // 如果中断触发了，则在 loop 中处理
+    if (buttonEventFlag)
+    {
+        buttonEventFlag = false; // 清除标记
+        // 读取当前按钮状态
+        bool currentState = digitalRead(BACK_PIN);
+        // 当检测到按钮由未按下（高）变为按下（低）时，记录开始时间
+        if (currentState == LOW && !buttonPressed)
+        {
+            pressStartTime = millis();
+            buttonPressed = true;
+        }
+        // 当检测到按钮由按下（低）变为松开（高）时，计算按住时长
+        else if (currentState == HIGH && buttonPressed)
+        {
+            unsigned long pressDuration = millis() - pressStartTime;
+            Serial.printf("Press duration: %ld\n", pressDuration);
+            if (pressDuration >= longPressThreshold)
+            {
+                Serial.println("长按检测");
+                AppManager::notifyBackButtonLongPressed();
+            }
+            else
+            {
+                Serial.println("短按检测");
+                AppManager::notifyBackButtonPressed();
+            }
+            buttonPressed = false;
+        }
+    }
+    if (AppManager::idleNeedDeepSleep())
+    {
         MY_LOG("Enter deep sleep when idle %d seconds", IDLE_DEEP_SLEEP_TIME_SECONDS);
         enter_deep_sleep();
     }
@@ -302,7 +352,6 @@ void mainLoop()
         MY_LOG("Failed to read inputs");
     }
     bool backPressed = digitalRead(BACK_PIN) == LOW;
-    AppManager::checkNotifyBackButton(backPressed);
 
     // testFillRainbow();
     // uint16_t randColor = rand() % 64;

@@ -13,7 +13,8 @@
 
 #define TAG "WatchFaceSelector"
 
-WatchFaceSelector::WatchFaceSelector()
+WatchFaceSelector::WatchFaceSelector(void *params)
+    : ThymeApp(params)
 {
     MY_LOG("WatchFaceSelector::WatchFaceSelector()");
 }
@@ -39,7 +40,6 @@ void WatchFaceSelector::onDraw(Arduino_Canvas_6bit *gfx)
     flushDisplay(gfx->getFramebuffer());
 }
 
-
 WatchFaceSelector::~WatchFaceSelector()
 {
     MY_LOG("WatchFaceSelector::~WatchFaceSelector()");
@@ -56,4 +56,3 @@ void WatchFaceSelector::renderNyanCat(Arduino_Canvas_6bit *gfx)
         nyanCatFramePos = 0;
     }
 }
-

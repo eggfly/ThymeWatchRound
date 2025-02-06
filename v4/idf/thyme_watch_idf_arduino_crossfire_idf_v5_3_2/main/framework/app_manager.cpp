@@ -66,6 +66,22 @@ namespace Thyme::AppManager
         prevBackPressed = backPressed;
     }
 
+    void notifyBackButtonPressed()
+    {
+        if (currentApp != nullptr)
+        {
+            currentApp->onBackPressed();
+        }
+    }
+
+    void notifyBackButtonLongPressed()
+    {
+        if (currentApp != nullptr)
+        {
+            currentApp->onBackLongPressed();
+        }
+    }
+
     void checkNotifyDigitalCrown(long position)
     {
         if (currentApp != nullptr && currentApp->needUpdateDigitalCrown())

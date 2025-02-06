@@ -20,7 +20,7 @@
 
 using namespace Thyme;
 
-UsbMscApp::UsbMscApp()
+UsbMscApp::UsbMscApp(void *params) : ThymeApp(params)
 {
     MY_LOG("UsbMscApp::UsbMscApp()");
 }

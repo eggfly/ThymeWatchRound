@@ -14,7 +14,7 @@
 class WatchFaceSelector : public ThymeApp
 {
 public:
-    WatchFaceSelector();
+    WatchFaceSelector(void *params = nullptr);
     std::string appId() override;
     void onStart(Arduino_Canvas_6bit *gfx) override;
     void onStop(Arduino_Canvas_6bit *gfx) override;

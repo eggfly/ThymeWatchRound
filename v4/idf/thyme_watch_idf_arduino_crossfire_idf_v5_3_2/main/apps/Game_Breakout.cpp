@@ -13,7 +13,7 @@
 
 using namespace Thyme;
 
-Game_Breakout::Game_Breakout()
+Game_Breakout::Game_Breakout(void *params) : ThymeApp(params)
 {
     MY_LOG("Game_Breakout::Game_Breakout()");
 }
@@ -45,7 +45,7 @@ void Game_Breakout::onDraw(Arduino_Canvas_6bit *gfx)
     {
         for (int j = 0; j < 4; j++)
         {
-            uint8_t randomRed= rand() & 0xff;
+            uint8_t randomRed = rand() & 0xff;
             uint8_t randomGreen = rand() & 0xff;
             uint8_t randomBlue = rand() & 0xff;
             uint16_t randomColor = RGB565(randomRed, randomGreen, randomBlue);

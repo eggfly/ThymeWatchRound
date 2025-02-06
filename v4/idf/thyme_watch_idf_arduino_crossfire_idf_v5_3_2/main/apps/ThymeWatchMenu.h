@@ -17,7 +17,7 @@ typedef struct
 class ThymeWatchMenu : public ThymeApp
 {
 public:
-    ThymeWatchMenu();
+    ThymeWatchMenu(void *params = nullptr);
     std::string appId() override;
     void onStart(Arduino_Canvas_6bit *gfx) override;
     void onStop(Arduino_Canvas_6bit *gfx) override;

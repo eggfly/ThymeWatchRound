@@ -13,7 +13,7 @@ namespace Thyme::AppManager
     extern unsigned long lastInteractTime;
 
     template <typename T>
-    void navigateToApp()
+    void navigateToApp(void *params = nullptr)
     {
         static_assert(std::is_base_of<ThymeApp, T>::value, "T must be a subclass of ThymeApp");
         if (currentApp != nullptr)
@@ -21,12 +21,15 @@ namespace Thyme::AppManager
             currentApp->onStop(gfx);
             delete currentApp;
         }
-        currentApp = new T();
+        currentApp = new T(params);
         currentApp->onStart(gfx);
     }
 
     void checkNotifyButtonEvent(uint8_t buttonState);
     void checkNotifyBackButton(bool backPressed);
+    void notifyBackButtonPressed();
+    void notifyBackButtonLongPressed();
+
     void checkNotifyDigitalCrown(long position);
     bool idleNeedDeepSleep();
 

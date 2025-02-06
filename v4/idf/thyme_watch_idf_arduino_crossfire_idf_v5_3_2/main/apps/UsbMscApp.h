@@ -7,7 +7,7 @@
 class UsbMscApp : public ThymeApp
 {
 public:
-    UsbMscApp();
+    UsbMscApp(void* params);
     std::string appId() override;
     void onStart(Arduino_Canvas_6bit *gfx) override;
     void onDraw(Arduino_Canvas_6bit *gfx) override;

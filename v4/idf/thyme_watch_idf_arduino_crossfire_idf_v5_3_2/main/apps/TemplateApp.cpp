@@ -13,7 +13,7 @@
 
 using namespace Thyme;
 
-TemplateApp::TemplateApp()
+TemplateApp::TemplateApp(void* params) : ThymeApp(params)
 {
     MY_LOG("TemplateApp::TemplateApp()");
 }

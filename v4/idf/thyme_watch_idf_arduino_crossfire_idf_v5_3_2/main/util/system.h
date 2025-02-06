@@ -10,3 +10,5 @@ void enter_deep_sleep();
 void init_sdmmc();
 void toggleBacklight();
 void my_esp_restart();
+void myShortToneAsync();
+void myShortToneSync();

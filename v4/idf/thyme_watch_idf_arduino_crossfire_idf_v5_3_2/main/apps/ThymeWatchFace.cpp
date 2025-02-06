@@ -20,9 +20,10 @@
 
 using namespace Thyme;
 
-ThymeWatchFace::ThymeWatchFace()
+ThymeWatchFace::ThymeWatchFace(void *params) : ThymeApp(params)
 {
-    MY_LOG("ThymeWatchFace::ThymeWatchFace()");
+    mIsAdjust = (params != nullptr);
+    MY_LOG("ThymeWatchFace::ThymeWatchFace(), isAdjust: %d", mIsAdjust);
 }
 
 std::string ThymeWatchFace::appId()
@@ -249,6 +250,12 @@ void ThymeWatchFace::onBackPressed()
 {
     toggleBacklight();
     MY_LOG("ThymeWatchFace::onBackPressed()");
+}
+
+void ThymeWatchFace::onBackLongPressed()
+{
+    MY_LOG("ThymeWatchFace::onBackLongPressed()");
+    enter_deep_sleep();
 }
 
 void ThymeWatchFace::renderNyanCat(Arduino_Canvas_6bit *gfx)

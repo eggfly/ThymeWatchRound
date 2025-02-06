@@ -7,7 +7,7 @@
 class TemplateApp : public ThymeApp
 {
 public:
-    TemplateApp();
+    TemplateApp(void *params);
     std::string appId() override;
     void onStart(Arduino_Canvas_6bit *gfx) override;
     void onStop(Arduino_Canvas_6bit *gfx) override;

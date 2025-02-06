@@ -144,7 +144,8 @@ MenuItem menu_items[] = {
 const size_t menu_items_count =
     sizeof(menu_items) / sizeof(menu_items[0]);
 
-ThymeWatchMenu::ThymeWatchMenu()
+ThymeWatchMenu::ThymeWatchMenu(void *params)
+    : ThymeApp(params)
 {
     MY_LOG("ThymeWatchMenu::ThymeWatchMenu()");
     selectedItem = 0;
@@ -251,7 +252,8 @@ void ThymeWatchMenu::onMiddleButtonPressed()
     }
     else if (strcmp(selected.id, "adjust_time") == 0)
     {
-        // AppManager::navigateToApp<AdjustTimeApp>();
+        void * params = reinterpret_cast<void *>(true);
+        AppManager::navigateToApp<ThymeWatchFace>(params);
     }
     else if (strcmp(selected.id, "alarms") == 0)
     {
