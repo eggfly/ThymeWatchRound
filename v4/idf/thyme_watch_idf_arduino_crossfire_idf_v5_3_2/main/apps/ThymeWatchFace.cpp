@@ -65,15 +65,15 @@ void ThymeWatchFace::onDraw(Arduino_Canvas_6bit *gfx)
         read_fuel_gauge(&fuel_gauge_data);
         print_fuel_gauge(fuel_gauge_data);
         snprintf(power_buf, sizeof(power_buf), "%.2fV %.2fmA %.1f%%", fuel_gauge_data.cellVoltage, va_meter_data.current_mA, fuel_gauge_data.cellPercent);
-        // bool got_imu_data = read_imu(&imu_data);
-        // if (got_imu_data)
-        // {
-        //     MY_LOG("IMU: %f %f %f", imu_data.acc_x, imu_data.acc_y, imu_data.acc_z);
-        // }
-        // else
-        // {
-        //     MY_LOG("IMU data not available");
-        // }
+        bool got_imu_data = read_imu(&imu_data);
+        if (got_imu_data)
+        {
+            MY_LOG("IMU: %f %f %f", imu_data.acc_x, imu_data.acc_y, imu_data.acc_z);
+        }
+        else
+        {
+            MY_LOG("IMU data not available");
+        }
         sensorUpdateTime = millis();
     }
 

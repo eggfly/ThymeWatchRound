@@ -11,7 +11,7 @@ void init_imu()
   
   // CDCSerial.println("IMU debug");
   // IMU is a macro to IMU_BMI270_BMM150
-  if (!IMU.begin()) // BOSCH_ACCELEROMETER_ONLY
+  if (!IMU.begin(BOSCH_ACCELEROMETER_ONLY)) // BOSCH_ACCELEROMETER_ONLY
   {
     MY_LOG("Failed to initialize IMU!");
     // Serial.println();

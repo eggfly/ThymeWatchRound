@@ -38,7 +38,7 @@ int BoschSensorClass::begin(CfgBoshSensor_t cfg) {
 
   _wire->begin();
 
-  bmi2.chip_id = BMI2_I2C_PRIM_ADDR;
+  bmi2.chip_id = BMI2_I2C_SEC_ADDR;
   bmi2.read = bmi2_i2c_read;
   bmi2.write = bmi2_i2c_write;
   bmi2.delay_us = bmi2_delay_us;

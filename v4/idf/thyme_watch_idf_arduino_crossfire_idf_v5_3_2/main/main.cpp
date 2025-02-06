@@ -202,7 +202,7 @@ void mainSetup()
     }
     // Init acce and gyro meters.
     init_ble_server();
-    // init_imu();
+    init_imu();
     // Init va meter
     init_va_meter();
     // Init fuel gauge
