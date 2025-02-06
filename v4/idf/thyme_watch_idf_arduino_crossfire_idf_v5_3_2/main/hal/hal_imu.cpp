@@ -28,25 +28,33 @@ void init_imu()
   MY_LOG("Accelerometer sample rate = %f Hz", IMU.accelerationSampleRate());
 }
 
-bool read_imu(imu_t *data)
+void read_imu(imu_t *data)
 {
   float x, y, z;
   if (IMU.accelerationAvailable())
   {
     IMU.readAcceleration(x, y, z);
-    // Serial.print(x);
-    // Serial.print('\t');
-    // Serial.print(y);
-    // Serial.print('\t');
-    // Serial.println(z);
     data->acc_x = x;
     data->acc_y = y;
     data->acc_z = z;
-    return true;
+    data->acc_valid = true;
   }
   else
   {
     // MY_LOG("Acceleration not available");
-    return false;
+    data->acc_valid = false;
+  }
+  if (IMU.gyroscopeAvailable())
+  {
+    IMU.readGyroscope(x, y, z);
+    data->gyro_x = x;
+    data->gyro_y = y;
+    data->gyro_z = z;
+    data->gyro_valid = true;
+  }
+  else
+  {
+    // MY_LOG("Gyroscope not available");
+    data->gyro_valid = false;
   }
 }

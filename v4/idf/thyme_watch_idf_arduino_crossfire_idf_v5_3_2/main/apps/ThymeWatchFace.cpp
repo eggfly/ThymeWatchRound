@@ -42,13 +42,14 @@ void ThymeWatchFace::onStop(Arduino_Canvas_6bit *gfx)
 
 void ThymeWatchFace::onDraw(Arduino_Canvas_6bit *gfx)
 {
-    if (millis() - rtcUpdateTime > RTC_UPDATE_INTERVAL)
+    unsigned long currTime = millis();
+    if (currTime - rtcUpdateTime > RTC_UPDATE_INTERVAL)
     {
         tm = readRTC();
-        rtcUpdateTime = millis();
+        rtcUpdateTime = currTime;
     }
 
-    if (millis() - sensorUpdateTime > SENSOR_UPDATE_INTERVAL)
+    if (currTime - sensorUpdateTime > SENSOR_UPDATE_INTERVAL)
     {
         pressure_t pressure_data = read_pressure();
         snprintf(buf, sizeof(buf), "\n T: %.3f C\n P: %.3f Pa\n A: %.3f m",
@@ -65,16 +66,21 @@ void ThymeWatchFace::onDraw(Arduino_Canvas_6bit *gfx)
         read_fuel_gauge(&fuel_gauge_data);
         print_fuel_gauge(fuel_gauge_data);
         snprintf(power_buf, sizeof(power_buf), "%.2fV %.2fmA %.1f%%", fuel_gauge_data.cellVoltage, va_meter_data.current_mA, fuel_gauge_data.cellPercent);
-        bool got_imu_data = read_imu(&imu_data);
-        if (got_imu_data)
+        sensorUpdateTime = currTime;
+    }
+
+    if (currTime - imuUpdateTime > IMU_UPDATE_INTERVAL)
+    {
+        read_imu(&imu_data);
+        if (imu_data.acc_valid && imu_data.gyro_valid)
         {
-            MY_LOG("IMU: %f %f %f", imu_data.acc_x, imu_data.acc_y, imu_data.acc_z);
+            MY_LOG("IMU: %f %f %f, %f %f %f", imu_data.acc_x, imu_data.acc_y, imu_data.acc_z, imu_data.gyro_x, imu_data.gyro_y, imu_data.gyro_z);
         }
         else
         {
             MY_LOG("IMU data not available");
         }
-        sensorUpdateTime = millis();
+        imuUpdateTime = currTime;
     }
 
     if (currentWatchFaceIndex == 0)
@@ -94,11 +100,13 @@ void ThymeWatchFace::onDraw(Arduino_Canvas_6bit *gfx)
         // 秒钟的第2位
         gfx->drawBitmap(178, 129, digits_14x29[tm.Second % 10], 14, 29, RGB565_BLACK);
         printCenteredText(gfx, power_buf, COLOR_BLACK, 1, 120, 120);
+        drawIMUPointer(gfx);
         flushDisplay(gfx->getFramebuffer());
     }
     else if (currentWatchFaceIndex == 1)
     {
         renderNyanCat(gfx);
+        drawIMUPointer(gfx);
     }
     else if (currentWatchFaceIndex == 2)
     {
@@ -179,13 +187,25 @@ void ThymeWatchFace::onDraw(Arduino_Canvas_6bit *gfx)
             gfx->fillTriangle(second_x2, second_y2, second_x3, second_y3, second_x0, second_y0, RGB565_RED);
         }
         gfx->fillCircle(120, 120, hourThinkness, RGB565_RED);
-
+        drawIMUPointer(gfx);
         flushDisplay(gfx->getFramebuffer());
     }
     else
     {
         MY_LOG("Unknown watch face index: %d", currentWatchFaceIndex);
     }
+}
+
+void ThymeWatchFace::drawIMUPointer(Arduino_Canvas_6bit *gfx)
+{
+    // x 取负的
+    int16_t x = 120 - 120 * imu_data.acc_x;
+    int16_t y = 120 + 120 * imu_data.acc_y;
+    // horizontal crosshair
+    gfx->fillRect(x - CrosshairHalfLength, y - CrosshairHalfThickness, 2 * CrosshairHalfLength, 2 * CrosshairHalfThickness, RGB565_GREEN);
+    // vertical crosshair
+    gfx->fillRect(x - CrosshairHalfThickness, y - CrosshairHalfLength, 2 * CrosshairHalfThickness, 2 * CrosshairHalfLength, RGB565_GREEN);
+    gfx->fillCircle(x, y, CrosshairCenterRadius, RGB565_RED);
 }
 
 void ThymeWatchFace::onUpButtonPressed()

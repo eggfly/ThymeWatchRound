@@ -4,10 +4,15 @@
 
 typedef struct
 {
+    bool acc_valid;
     float acc_x;
     float acc_y;
     float acc_z;
+    bool gyro_valid;
+    float gyro_x;
+    float gyro_y;
+    float gyro_z;
 } imu_t;
 
 void init_imu();
-bool read_imu(imu_t *data);
+void read_imu(imu_t *data);

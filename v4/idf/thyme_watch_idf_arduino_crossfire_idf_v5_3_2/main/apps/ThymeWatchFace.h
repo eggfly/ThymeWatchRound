@@ -28,6 +28,9 @@ public:
     ~ThymeWatchFace() override;
 
 private:
+    const int16_t CrosshairHalfLength = 20;
+    const int16_t CrosshairHalfThickness = 1;
+    const int16_t CrosshairCenterRadius = 4;
     long lastDigitalCrownPosition = 0;
     int16_t currentWatchFaceIndex = 0;
     int16_t watchFaceCount = 3;
@@ -38,7 +41,9 @@ private:
     tmElements_t tm;
     unsigned long rtcUpdateTime = 0;
     unsigned long sensorUpdateTime = 0;
+    unsigned long imuUpdateTime = 0;
     void renderNyanCat(Arduino_Canvas_6bit *gfx);
+    void drawIMUPointer(Arduino_Canvas_6bit *gfx);
     char buf[256];
     char power_buf[256];
 };
