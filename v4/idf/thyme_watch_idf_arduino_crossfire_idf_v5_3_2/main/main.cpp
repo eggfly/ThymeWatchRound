@@ -82,7 +82,7 @@ uint8_t _16_colors[16] = {
 
 void testFillRainbow()
 {
-    for (int i = 0; i < 16; i++)
+    for (int i = 0; i < 8; i++)
     {
         AppManager::gfx->fillCircle(120, 120, 120 - i * 7, _16_colors[i]);
         // canvas->fillCircle(120, 120, 120 - i * 7, _16_colors[i]);
@@ -153,7 +153,9 @@ void IRAM_ATTR btnISR()
 
 void mainSetup()
 {
-    myShortToneAsync();
+    if (ENABLE_POWER_AND_SLEEP_BUZZER) {
+        myShortToneAsync();
+    }
     MY_LOG("Now app_main() called, time is %ld", millis());
     AppManager::navigateToApp<ThymeWatchFace>();
     pinMode(BACK_PIN, INPUT);
@@ -212,8 +214,10 @@ void mainSetup()
             flushDisplay(AppManager::frame_buffer);
         }
     }
+    if (ENABLE_WATCH_BLE_SERVER) {
+        init_ble_server();
+    }
     // Init acce and gyro meters.
-    init_ble_server();
     init_imu();
     // Init va meter
     init_va_meter();
@@ -365,7 +369,10 @@ void mainLoop()
         AppManager::currentApp->onDraw(AppManager::gfx);
     }
     // TODO
-    ble_server_loop();
+    if (ENABLE_WATCH_BLE_SERVER)
+    {
+        ble_server_loop();
+    }
 }
 
 extern "C"

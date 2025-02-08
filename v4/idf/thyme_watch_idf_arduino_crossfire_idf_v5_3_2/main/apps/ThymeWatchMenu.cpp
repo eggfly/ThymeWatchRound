@@ -232,7 +232,7 @@ void ThymeWatchMenu::onMiddleButtonPressed()
     }
     else if (strcmp(selected.id, "music") == 0)
     {
-        // AppManager::navigateToApp<MusicApp>();
+        AppManager::navigateToApp<MusicPlayer>();
     }
     else if (strcmp(selected.id, "settings") == 0)
     {

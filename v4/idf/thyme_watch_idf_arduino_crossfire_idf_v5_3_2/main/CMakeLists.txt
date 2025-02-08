@@ -33,6 +33,7 @@ idf_component_register(
       "apps/UsbMscApp.cpp"
       "apps/Game_Breakout.cpp"
       "apps/SensorsApp.cpp"
+      "apps/MusicPlayer.cpp"
     INCLUDE_DIRS . ./gfx
     PRIV_REQUIRES "${priv_requires}"
 )

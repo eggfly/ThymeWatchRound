@@ -15,8 +15,13 @@
 
 #include <apps/apps.h>
 #include "framework/app_manager.h"
+#include "Audio.h" //https://github.com/schreibfaul1/ESP32-audioI2S
 
 #define TAG "ThymeWatchFace"
+
+// #define FONT u8g2_font_wqy12_t_gb2312b
+// #define FONT u8g2_font_wqy14_t_gb2312b
+#define FONT u8g2_font_chill7_h_cjk
 
 using namespace Thyme;
 
@@ -31,8 +36,24 @@ std::string ThymeWatchFace::appId()
     return "watch_face";
 }
 
+Audio audio;
+
+bool playerInitialized = false;
+
+void startPlayOnce()
+{
+    if (!playerInitialized)
+    {
+        bool started = audio.connecttoFS(SD_MMC, "/蔡琴 - 渡口.mp3"); // mp3
+        MY_LOG("connecttoFS(), started: %d", started);
+        playerInitialized = true;
+    }
+}
+
 void ThymeWatchFace::onStart(Arduino_Canvas_6bit *gfx)
 {
+    audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
+    audio.setVolume(6); // 0...21
     MY_LOG("ThymeWatchFace::onStart()");
 }
 
@@ -40,9 +61,226 @@ void ThymeWatchFace::onStop(Arduino_Canvas_6bit *gfx)
 {
     MY_LOG("ThymeWatchFace::onStop()");
 }
+const char three_body_problem[] =
+    "罗辑站在叶文洁面前，心中充满了疑惑和不安。他刚刚从叶文洁那里得知了宇宙社会学的核心理论，而这个理论将彻底改变他对宇宙的认知。\n"
+    "叶文洁缓缓地说道：“罗辑，你知道宇宙中有多少文明吗？”\n"
+    "罗辑摇了摇头：“我不知道，但根据德雷克方程，宇宙中的文明数量应该是非常庞大的。”\n"
+    "叶文洁微微一笑：“是的，宇宙中的文明数量确实庞大，但你知道它们为什么没有出现在我们面前吗？”\n"
+    "罗辑沉思片刻，回答道：“可能是因为距离太远，或者它们的技术还没有达到能够进行星际旅行的水平。”\n"
+    "叶文洁摇了摇头：“不，罗辑，真正的原因远比这更残酷。宇宙中的每一个文明都是猎人，它们隐藏在黑暗中，小心翼翼地隐藏自己，同时也在寻找其他文明。一旦发现其他文明的存在，它们会毫不犹豫地将其消灭。”\n"
+    "罗辑震惊地看着叶文洁：“这……这怎么可能？为什么它们要这么做？”\n"
+    "叶文洁的目光变得深邃：“因为宇宙的资源是有限的，而文明的发展是无限的。任何一个文明的存在，都会对其他文明构成威胁。为了生存，它们必须消灭潜在的竞争对手。”\n"
+    "罗辑感到一阵寒意：“那……那我们该怎么办？如果宇宙真的是这样一个黑暗的森林，我们岂不是随时都可能被其他文明消灭？”\n"
+    "叶文洁点了点头：“是的，罗辑，这就是宇宙的真相。我们唯一能做的，就是隐藏自己，不要暴露在宇宙的黑暗中。只有这样，我们才能生存下去。”\n"
+    "罗辑沉默了片刻，突然问道：“那……如果我们发现了其他文明，我们该怎么办？”\n"
+    "叶文洁的目光变得冰冷：“消灭它，毫不犹豫地消灭它。因为如果你不消灭它，它就会消灭你。”\n"
+    "罗辑感到一阵窒息，他从未想过宇宙竟然如此残酷。他低声问道：“这就是宇宙社会学的核心理论吗？”\n"
+    "叶文洁点了点头：“是的，罗辑，这就是‘黑暗森林法则’。宇宙是一片黑暗的森林，每一个文明都是带枪的猎人，像幽灵般潜行于林间，轻轻拨开挡路的树枝，竭力不让脚步发出一点儿声音，连呼吸都必须小心翼翼。他必须小心，因为林中到处都有与他一样潜行的猎人。如果他发现了别的生命，能做的只有一件事：开枪消灭之。在这片森林中，他人就是地狱，就是永恒的威胁，任何暴露自己存在的生命都将很快被消灭。”\n"
+    "罗辑感到一阵深深的无力感，他意识到自己正站在一个巨大的谜团面前，而这个谜团的答案将决定人类文明的命运。";
+
+const char shen_nong_c_str[] =
+    "Shen Nong\n\n"
+    "神农一生下来就是\n"
+    "个水晶肚子，五脏\n"
+    "六腑全都能看得一\n"
+    "清二楚。那时侯，\n"
+    "人们经常因为乱吃\n"
+    "东西而生病，甚至\n"
+    "丧命。神农决心尝\n"
+    "遍所有的东西，好\n"
+    "吃的放在身边左边\n"
+    "的袋子里，给人吃\n"
+    "；\n"
+    "不好吃的就放在身\n"
+    "子右边的袋子里，\n"
+    "作药用。\n"
+    "第一次，神农尝了\n"
+    "一片小嫩叶。这叶\n"
+    "片一落进肚里，就\n"
+    "上上下下地把里面\n"
+    "各器官擦洗得清清\n"
+    "爽爽，\n"
+    "象巡查似的，\n"
+    "神农把它叫做\n"
+    "“查”，\n"
+    "就是后人所称的\n"
+    "“茶”。\n"
+    "神农将它放进右边\n"
+    "袋子里。第二次，\n"
+    "神农尝了朵蝴蝶样\n"
+    "的淡红小花，甜津\n"
+    "津的，香味扑鼻，\n"
+    "这是“甘草”。他把\n"
+    "它放进了左边袋子\n"
+    "里。就这样，神农\n"
+    "辛苦地尝遍百草，\n"
+    "每次中毒，都靠茶\n"
+    "来解救。后来，\n"
+    "他左边的袋子里花\n"
+    "草根叶有四万七千\n"
+    "种，右边有三十九\n"
+    "万八千种。\n"
+    "但有一天，神农尝\n"
+    "到了“断肠草”，这\n"
+    "种毒草太厉害了，\n"
+    "他还来不及吃茶解\n"
+    "毒就死了。\n"
+    "他是为了拯救人们\n"
+    "而牺牲的，人们称\n"
+    "他为“药王菩萨”，\n"
+    "人间以这个神话故\n"
+    "事永远地纪念他。\n";
+
+size_t getLineCharCount(const char *str)
+{
+    size_t count = 0;
+    for (size_t i = 0; i < strlen(str); i++)
+    {
+        if (str[i] == '\n')
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+size_t getNextLineWrapCharPos(const char *str, size_t startPos)
+{
+    size_t i = startPos;
+    while (str[i] != '\n')
+    {
+        i++;
+    }
+    return i;
+}
+
+char music_title[256] = "";
+char music_album[256] = "";
+char music_artist[256] = "";
+
+int strncmpci(const char *str1, const char *str2, size_t num)
+{
+    int ret_code = 0;
+    size_t chars_compared = 0;
+
+    if (!str1 || !str2)
+    {
+        ret_code = INT_MIN;
+        return ret_code;
+    }
+
+    while ((chars_compared < num) && (*str1 || *str2))
+    {
+        ret_code = tolower((int)(*str1)) - tolower((int)(*str2));
+        if (ret_code != 0)
+        {
+            break;
+        }
+        chars_compared++;
+        str1++;
+        str2++;
+    }
+
+    return ret_code;
+}
+
+bool startsWithIgnoreCase(const char *pre, const char *str)
+{
+    return strncmpci(pre, str, strlen(pre)) == 0;
+}
+
+bool endsWithIgnoreCase(const char *base, const char *str)
+{
+    int blen = strlen(base);
+    int slen = strlen(str);
+    return (blen >= slen) && (0 == strncmpci(base + blen - slen, str, strlen(str)));
+}
+
+// START: weak functions
+// optional
+void audio_info(const char *info)
+{
+    Serial.print("info        ");
+    Serial.println(info);
+}
+
+void audio_id3data(const char *info)
+{
+    // id3 metadata
+    Serial.print("id3data     ");
+    Serial.println(info);
+    if (startsWithIgnoreCase("TITLE", info))
+    {
+        strncpy(music_title, info + sizeof("TITLE") + 1, sizeof(music_title) / sizeof(music_title[0]));
+    }
+    if (startsWithIgnoreCase("ALBUM", info))
+    {
+        strncpy(music_album, info + sizeof("ALBUM") + 1, sizeof(music_album) / sizeof(music_album[0]));
+    }
+    if (startsWithIgnoreCase("ARTIST", info))
+    {
+        strncpy(music_artist, info + sizeof("ARTIST") + 1, sizeof(music_artist) / sizeof(music_artist[0]));
+    }
+    // drawScreen();
+}
+
+void audio_eof_mp3(const char *info)
+{
+    // end of file
+    Serial.print("eof_mp3     ");
+    Serial.println(info);
+}
+
+void audio_showstation(const char *info)
+{
+    Serial.print("station     ");
+    Serial.println(info);
+}
+
+void audio_showstreamtitle(const char *info)
+{
+    Serial.print("streamtitle ");
+    Serial.println(info);
+}
+
+void audio_bitrate(const char *info)
+{
+    Serial.print("bitrate     ");
+    Serial.println(info);
+}
+
+void audio_commercial(const char *info)
+{
+    // duration in sec
+    Serial.print("commercial  ");
+    Serial.println(info);
+}
+
+void audio_icyurl(const char *info)
+{
+    // homepage
+    Serial.print("icyurl      ");
+    Serial.println(info);
+}
+
+void audio_lasthost(const char *info)
+{
+    // stream URL played
+    Serial.print("lasthost    ");
+    Serial.println(info);
+}
+
+void audio_eof_speech(const char *info)
+{
+    Serial.print("eof_speech  ");
+    Serial.println(info);
+}
+// END: weak functions
 
 void ThymeWatchFace::onDraw(Arduino_Canvas_6bit *gfx)
 {
+    startPlayOnce();
+    audio.loop();
     unsigned long currTime = millis();
     if (currTime - rtcUpdateTime > RTC_UPDATE_INTERVAL)
     {
@@ -52,6 +290,9 @@ void ThymeWatchFace::onDraw(Arduino_Canvas_6bit *gfx)
 
     if (currTime - sensorUpdateTime > SENSOR_UPDATE_INTERVAL)
     {
+        // TODO
+        uint32_t currAudioTime = audio.getAudioCurrentTime();
+        MY_LOG("Audio current time: %lu", currAudioTime);
         pressure_t pressure_data = read_pressure();
         snprintf(buf, sizeof(buf), "\n T: %.3f C\n P: %.3f Pa\n A: %.3f m",
                  pressure_data.temperature,
@@ -191,6 +432,45 @@ void ThymeWatchFace::onDraw(Arduino_Canvas_6bit *gfx)
         drawIMUPointer(gfx);
         flushDisplay(gfx->getFramebuffer());
     }
+    else if (currentWatchFaceIndex == 3)
+    {
+        gfx->fillScreen(RGB565_BLACK);
+        // test utf8 chinese text
+        gfx->setUTF8Print(true);
+        gfx->setTextColor(RGB565_RED);
+        // u8g2_font_unifont_t_gb2312 ->16 height? 304973 bytes
+        // u8g2_font_unifont_t_chinese -> 979557 bytes
+        // u8g2_font_wqy12_t_gb2312b -> 12 height, 118722 bytes
+        gfx->setFont(u8g2_font_wqy12_t_gb2312b);
+        gfx->setCursor(80, 120);
+        gfx->print("こんにちは世界!\n你好世界\n加速度计");
+        gfx->setFont(FONT);
+        gfx->setTextColor(RGB565_WHITE);
+        if (0)
+        {
+            size_t lineCount = getLineCharCount(shen_nong_c_str);
+            MY_LOG("lineCount: %d", lineCount);
+            size_t lineStartPos = 0;
+            char line_buf[256];
+            for (size_t i = 0; i < lineCount; i++)
+            {
+                int16_t y = 8 * (i + 1);
+                gfx->setCursor(100, y);
+                if (y > 240)
+                {
+                    break;
+                }
+                lineStartPos = getNextLineWrapCharPos(shen_nong_c_str, lineStartPos) + 1;
+                size_t nextLineWrapPos = getNextLineWrapCharPos(shen_nong_c_str, lineStartPos);
+                strncpy(line_buf, shen_nong_c_str + lineStartPos, nextLineWrapPos - lineStartPos);
+                line_buf[nextLineWrapPos - lineStartPos] = '\0';
+                gfx->print(line_buf);
+            }
+        }
+        gfx->setCursor(0, 0);
+        gfx->print(three_body_problem);
+        flushDisplay(gfx->getFramebuffer());
+    }
     else
     {
         MY_LOG("Unknown watch face index: %d", currentWatchFaceIndex);
@@ -213,7 +493,7 @@ void ThymeWatchFace::onUpButtonPressed()
 {
     currentWatchFaceIndex++;
     // watchFaceCount
-    if (currentWatchFaceIndex >= 3)
+    if (currentWatchFaceIndex >= WatchFaceCount)
     {
         currentWatchFaceIndex = 0;
     }
@@ -236,7 +516,7 @@ void ThymeWatchFace::onDownButtonPressed()
     currentWatchFaceIndex--;
     if (currentWatchFaceIndex < 0)
     {
-        currentWatchFaceIndex = watchFaceCount - 1;
+        currentWatchFaceIndex = WatchFaceCount - 1;
     }
     MY_LOG("ThymeWatchFace::onDownButtonPressed()");
 }

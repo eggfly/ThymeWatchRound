@@ -26,7 +26,7 @@ class MyServerCallbacks : public BLEServerCallbacks {
 
 
 void init_ble_server() {
-    Serial.begin(115200);
+  // Serial.begin(115200);
 
   // Create the BLE Device
   BLEDevice::init("ESP32");

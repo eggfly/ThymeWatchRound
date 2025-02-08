@@ -34,7 +34,7 @@ private:
     const int16_t CrosshairCenterRadius = 4;
     long lastDigitalCrownPosition = 0;
     int16_t currentWatchFaceIndex = 0;
-    int16_t watchFaceCount = 3;
+    const int16_t WatchFaceCount = 4;
     va_meter_t va_meter_data;
     fuel_gauge_t fuel_gauge_data;
     imu_t imu_data;
