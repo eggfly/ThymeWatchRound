@@ -49,7 +49,11 @@ void radio_setup()
     //    audio.connecttohost("http://somafm.com/wma128/missioncontrol.asx"); //  asx
     //    audio.connecttohost("http://mp3.ffh.de/radioffh/hqlivestream.aac"); //  128k aac
     // audio.connecttohost("http://mp3.ffh.de/radioffh/hqlivestream.mp3"); //  128k mp3
-    audio.connecttohost("http://42.193.120.65:8002/520AM.mp3"); //  128k mp3
+    // audio.connecttohost("http://42.193.120.65:8002/520AM.mp3"); //  128k mp3
+    // http://42.193.120.65:8002/1%20-%20Hotel%20California.mp3
+    // audio.connecttohost("http://42.193.120.65:8002/1%20-%20Hotel%20California.mp3"); //  128k mp3
+    // audio.connecttohost("http://42.193.120.65:8002/%E8%94%A1%E7%90%B4%20-%20%E6%B8%A1%E5%8F%A3.mp3"); // 蔡琴 - 渡口.mp3
+    audio.connecttohost("http://42.193.120.65:8002/ygzjhyl.mp3"); // 
 }
 
 void radio_loop()

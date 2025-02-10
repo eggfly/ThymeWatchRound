@@ -21,9 +21,49 @@
 
 // #define FONT u8g2_font_wqy12_t_gb2312b
 // #define FONT u8g2_font_wqy14_t_gb2312b
+// u8g2_font_wqy16_t_gb2312
+
 #define FONT u8g2_font_chill7_h_cjk
 
 using namespace Thyme;
+
+std::vector<String> m_songFiles{};
+
+
+void populateMusicFileList(String path, size_t depth) {
+  Serial.printf("search: %s, depth=%d\n", path.c_str(), depth);
+  File musicDir = SD.open(path);
+  bool nextFileFound;
+  do {
+    nextFileFound = false;
+    File entry = musicDir.openNextFile();
+    if (entry) {
+      nextFileFound = true;
+      if (entry.isDirectory()) {
+        if (depth) {
+          populateMusicFileList(entry.path(), depth - 1);
+        }
+      } else {
+        const bool entryIsFile = entry.size() > 4096;
+        if (entryIsFile) {
+          if (APP_DEBUG) {
+            Serial.print(entry.path());
+            Serial.print(" size=");
+            Serial.println(entry.size());
+          }
+          if (endsWithIgnoreCase(entry.name(), ".mp3")
+              || endsWithIgnoreCase(entry.name(), ".flac")
+              || endsWithIgnoreCase(entry.name(), ".aac")
+              || endsWithIgnoreCase(entry.name(), ".wav")
+             ) {
+            m_songFiles.push_back(entry.path());
+          }
+        }
+      }
+      entry.close();
+    }
+  } while (nextFileFound);
+}
 
 ThymeWatchFace::ThymeWatchFace(void *params) : ThymeApp(params)
 {
@@ -44,7 +84,9 @@ void startPlayOnce()
 {
     if (!playerInitialized)
     {
-        bool started = audio.connecttoFS(SD_MMC, "/蔡琴 - 渡口.mp3"); // mp3
+        // bool started = audio.connecttoFS(SD_MMC, "/蔡琴 - 渡口.mp3"); // mp3
+        // bool started = audio.connecttoFS(SD_MMC, "/1 - Hotel California.flac"); // flac
+        bool started = audio.connecttoFS(SD_MMC, "/逃跑计划-阳光照进回忆里.mp3"); // mp3
         MY_LOG("connecttoFS(), started: %d", started);
         playerInitialized = true;
     }
@@ -53,7 +95,7 @@ void startPlayOnce()
 void ThymeWatchFace::onStart(Arduino_Canvas_6bit *gfx)
 {
     audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
-    audio.setVolume(6); // 0...21
+    audio.setVolume(7); // 0...21
     MY_LOG("ThymeWatchFace::onStart()");
 }
 
@@ -61,6 +103,7 @@ void ThymeWatchFace::onStop(Arduino_Canvas_6bit *gfx)
 {
     MY_LOG("ThymeWatchFace::onStop()");
 }
+
 const char three_body_problem[] =
     "罗辑站在叶文洁面前，心中充满了疑惑和不安。他刚刚从叶文洁那里得知了宇宙社会学的核心理论，而这个理论将彻底改变他对宇宙的认知。\n"
     "叶文洁缓缓地说道：“罗辑，你知道宇宙中有多少文明吗？”\n"

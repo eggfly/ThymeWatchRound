@@ -14,7 +14,7 @@ void initPCA6408A()
   pca6408a.setDirection(PCA6408A_IO7_INPUT |
                         PCA6408A_IO6_OUTPUT | /* PCA6408A_IO6 is TP POWER */
                         PCA6408A_IO5_INPUT |
-                        PCA6408A_IO4_INPUT |
+                        PCA6408A_IO4_OUTPUT |
                         PCA6408A_IO3_OUTPUT |
                         PCA6408A_IO2_INPUT |
                         PCA6408A_IO1_INPUT |
@@ -26,5 +26,7 @@ void initPCA6408A()
   }
   // Set TP 3V3 Open
   pca6408a.setDigital(PCA6408A_IO6, HIGH);
+  // Set PCM5102 power on, LOW is on
+  pca6408a.setDigital(PCA6408A_IO4, LOW);
 }
 

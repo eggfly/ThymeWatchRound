@@ -24,7 +24,7 @@ public:
     void onUpButtonPressed() override;
     void onMiddleButtonPressed() override;
     void onDownButtonPressed() override;
-    bool needUpdateDigitalCrown() override { return true; } 
+    bool needUpdateDigitalCrown() override { return true; }
     void onDigitalCrownRotated(long position) override;
     ~ThymeWatchFace() override;
 

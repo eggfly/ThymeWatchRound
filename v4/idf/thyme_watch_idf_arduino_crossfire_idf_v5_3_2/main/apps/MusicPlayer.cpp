@@ -14,7 +14,7 @@
 
 using namespace Thyme;
 
-MusicPlayer::MusicPlayer(void* params) : ThymeApp(params)
+MusicPlayer::MusicPlayer(void *params) : ThymeApp(params)
 {
     MY_LOG("MusicPlayer::MusicPlayer()");
 }
@@ -39,6 +39,22 @@ void MusicPlayer::onDraw(Arduino_Canvas_6bit *gfx)
     gfx->fillScreen(RGB565_BLACK);
     memcpy(gfx->getFramebuffer(), music_player, 240 * 240);
     printCenteredText(gfx, "Template App", RGB565_WHITE, 1, 120, 120);
+    gfx->setUTF8Print(true);
+    gfx->setTextColor(RGB565_BLACK);
+    gfx->setFont(u8g2_font_wqy16_t_gb2312);
+    gfx->setCursor(35, 75);
+    gfx->print("逃跑计划");
+    gfx->setFont(u8g2_font_wqy16_t_gb2312);
+    gfx->setCursor(35, 100);
+    gfx->print("阳光照进回忆里");
+    // gfx->setFont((const GFXfont *)nullptr);
+    gfx->setFont(u8g2_font_wqy12_t_gb2312);
+    gfx->setCursor(35, 155);
+    gfx->print("02:31");
+    gfx->setCursor(135, 155);
+    gfx->print("04:10");
+    gfx->setUTF8Print(false);
+
     flushDisplay(gfx->getFramebuffer());
 }
 

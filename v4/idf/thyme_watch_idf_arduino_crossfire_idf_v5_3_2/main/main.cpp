@@ -322,7 +322,7 @@ void mainLoop()
         if (AppManager::currentApp->needUpdateDigitalCrown())
         {
             long scroll_pos = read_pat9125();
-            MY_LOG("Scroll pos: %ld", scroll_pos);
+            // MY_LOG("Scroll pos: %ld", scroll_pos);
             AppManager::checkNotifyDigitalCrown(scroll_pos);
         }
     }
