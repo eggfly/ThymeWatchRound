@@ -52,8 +52,8 @@ MenuItem menu_items[] = {
         .icon_height = 20,
     },
     {
-        .id = "sd_card",
-        .title = "5.SD Card",
+        .id = "file_manager",
+        .title = "5.File Manager",
         .subtitle = nullptr,
         // .xbm_icon = pref_20x20,
         .icon_width = 20,
@@ -242,9 +242,9 @@ void ThymeWatchMenu::onMiddleButtonPressed()
     {
         AppManager::navigateToApp<UsbMscApp>();
     }
-    else if (strcmp(selected.id, "sd_card") == 0)
+    else if (strcmp(selected.id, "file_manager") == 0)
     {
-        // AppManager::navigateToApp<SDCardApp>();
+        AppManager::navigateToApp<FileManager>();
     }
     else if (strcmp(selected.id, "notifications") == 0)
     {

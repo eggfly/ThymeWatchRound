@@ -24,6 +24,7 @@ idf_component_register(
       "util/memory.cpp"
       "util/system.cpp"
       "util/ui.cpp"
+      "util/file.cpp"
       "framework/ThymeApp.cpp"
       "framework/app_manager.cpp"
       "apps/ThymeWatchMenu.cpp"
@@ -34,6 +35,7 @@ idf_component_register(
       "apps/Game_Breakout.cpp"
       "apps/SensorsApp.cpp"
       "apps/MusicPlayer.cpp"
+      "apps/FileManager.cpp"
     INCLUDE_DIRS . ./gfx
     PRIV_REQUIRES "${priv_requires}"
 )

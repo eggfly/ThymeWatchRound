@@ -12,6 +12,7 @@
 
 #include "util/ui.h"
 #include "util/system.h"
+#include "util/str.h"
 
 #include <apps/apps.h>
 #include "framework/app_manager.h"
@@ -29,40 +30,49 @@ using namespace Thyme;
 
 std::vector<String> m_songFiles{};
 
+char music_title[256] = "";
+char music_album[256] = "";
+char music_artist[256] = "";
 
-void populateMusicFileList(String path, size_t depth) {
-  Serial.printf("search: %s, depth=%d\n", path.c_str(), depth);
-  File musicDir = SD.open(path);
-  bool nextFileFound;
-  do {
-    nextFileFound = false;
-    File entry = musicDir.openNextFile();
-    if (entry) {
-      nextFileFound = true;
-      if (entry.isDirectory()) {
-        if (depth) {
-          populateMusicFileList(entry.path(), depth - 1);
+void populateMusicFileList(String path, size_t depth)
+{
+    Serial.printf("search: %s, depth=%d\n", path.c_str(), depth);
+    File musicDir = FS_INSTANCE.open(path);
+    bool nextFileFound;
+    do
+    {
+        nextFileFound = false;
+        File entry = musicDir.openNextFile();
+        if (entry)
+        {
+            nextFileFound = true;
+            if (entry.isDirectory())
+            {
+                if (depth)
+                {
+                    populateMusicFileList(entry.path(), depth - 1);
+                }
+            }
+            else
+            {
+                const bool entryIsFile = entry.size() > 4096;
+                if (entryIsFile)
+                {
+                    if (APP_DEBUG)
+                    {
+                        Serial.print(entry.path());
+                        Serial.print(" size=");
+                        Serial.println(entry.size());
+                    }
+                    if (endsWithIgnoreCase(entry.name(), ".mp3") || endsWithIgnoreCase(entry.name(), ".flac") || endsWithIgnoreCase(entry.name(), ".aac") || endsWithIgnoreCase(entry.name(), ".wav"))
+                    {
+                        m_songFiles.push_back(entry.path());
+                    }
+                }
+            }
+            entry.close();
         }
-      } else {
-        const bool entryIsFile = entry.size() > 4096;
-        if (entryIsFile) {
-          if (APP_DEBUG) {
-            Serial.print(entry.path());
-            Serial.print(" size=");
-            Serial.println(entry.size());
-          }
-          if (endsWithIgnoreCase(entry.name(), ".mp3")
-              || endsWithIgnoreCase(entry.name(), ".flac")
-              || endsWithIgnoreCase(entry.name(), ".aac")
-              || endsWithIgnoreCase(entry.name(), ".wav")
-             ) {
-            m_songFiles.push_back(entry.path());
-          }
-        }
-      }
-      entry.close();
-    }
-  } while (nextFileFound);
+    } while (nextFileFound);
 }
 
 ThymeWatchFace::ThymeWatchFace(void *params) : ThymeApp(params)
@@ -195,48 +205,6 @@ size_t getNextLineWrapCharPos(const char *str, size_t startPos)
         i++;
     }
     return i;
-}
-
-char music_title[256] = "";
-char music_album[256] = "";
-char music_artist[256] = "";
-
-int strncmpci(const char *str1, const char *str2, size_t num)
-{
-    int ret_code = 0;
-    size_t chars_compared = 0;
-
-    if (!str1 || !str2)
-    {
-        ret_code = INT_MIN;
-        return ret_code;
-    }
-
-    while ((chars_compared < num) && (*str1 || *str2))
-    {
-        ret_code = tolower((int)(*str1)) - tolower((int)(*str2));
-        if (ret_code != 0)
-        {
-            break;
-        }
-        chars_compared++;
-        str1++;
-        str2++;
-    }
-
-    return ret_code;
-}
-
-bool startsWithIgnoreCase(const char *pre, const char *str)
-{
-    return strncmpci(pre, str, strlen(pre)) == 0;
-}
-
-bool endsWithIgnoreCase(const char *base, const char *str)
-{
-    int blen = strlen(base);
-    int slen = strlen(str);
-    return (blen >= slen) && (0 == strncmpci(base + blen - slen, str, strlen(str)));
 }
 
 // START: weak functions
